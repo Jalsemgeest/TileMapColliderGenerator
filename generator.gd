@@ -39,16 +39,15 @@ func _ready():
 func _refresh_action(value: String) -> void:
 	if _collision_polygon_node == null:
 		# Delete all children collisionpolygon2d nodes.
-		for index in get_child_count():
-			var child = get_child(index)
+		for child in get_children():
+			print(str(child))
 			if child is CollisionPolygon2D:
-				remove_child(child)
+				child.get_parent().remove_child(child)
 				child.queue_free()
 	
 	set_polygons_on_colliders()
 
 func set_polygons_on_colliders() -> void:
-    # Thanks to github.com/afk-mario for having this code: https://gist.github.com/afk-mario/15b5855ccce145516d1b458acfe29a28
 	var polygons = []
 	if reference_physics_material:
 		polygons = get_tiles_with_physics()
@@ -109,10 +108,14 @@ func set_polygons_on_colliders() -> void:
 		_collision_polygon_node.polygon = polygons[0]
 		print("Set the assigned polygon shape.")
 	else:
+		var count = 0
 		for polygon in polygons:
 			var polygon_shape = CollisionPolygon2D.new()
 			polygon_shape.polygon = polygon
+			polygon_shape.name = "TMCG-CollisionPolygon2D-"+str(count)
+			count += 1
 			add_child(polygon_shape)
+			polygon_shape.owner = get_parent()
 		print("Added " + str(len(polygons)) + "(s) unique polygons.")
 
 func get_points(position: Vector2, cell_size: Vector2) -> Array:
@@ -204,7 +207,7 @@ func set_collision_polygon_node_path(value: NodePath) -> void:
 	if not _collision_polygon_node:
 		print("collision_polygon_node_path should point to proper CollisionPolygon2D node.")
 		print("CollisionPolygon2D will be generated for each unique shape.")
-	
+
 func _enter_tree():
 	set_tilemap_node_path(tilemap_node_path)
 	set_collision_polygon_node_path(collision_polygon_node_path)

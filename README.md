@@ -50,6 +50,11 @@ This exported field allows you to specify the layer of the TileMap that you woul
 When set to true, this exported field will respect the orientation of the tile that was set. As an example, if a tile has only the right 50% of the tile configured for the physics layer, and that tile is drawn on the screen but flipped horizontally, the horizontally flipped tile's collision will now be on the left 50% of the tile. By default when searching through the TileMap for a given cell within your scene, Godot does not return this respecting that tile's flipped state. Given this, I've added the ability to respect that by default. However, if this is a bug on the Godot side and Godot fixes this, all you would need to do is flip this boolean to false and it will just treat the returned collision as the source of truth.
 
 
+#### Things to Note:
+
+##### If you are running into issues where corners of your tilemap still are colliding, disbale the physics layer or move the collision for it to a different layer after generating the collision polygons.
+
+
 #### Special thanks to github.com/AFK-Mario for initially writing the code to generate the set of polygons [here](https://gist.github.com/afk-mario/15b5855ccce145516d1b458acfe29a28).
 
 #### Happy Coding! <3
