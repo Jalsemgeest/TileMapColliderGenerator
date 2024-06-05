@@ -48,6 +48,7 @@ func _refresh_action(value: String) -> void:
 	set_polygons_on_colliders()
 
 func set_polygons_on_colliders() -> void:
+    # Thanks to github.com/afk-mario for having this code: https://gist.github.com/afk-mario/15b5855ccce145516d1b458acfe29a28
 	var polygons = []
 	if reference_physics_material:
 		polygons = get_tiles_with_physics()
@@ -109,7 +110,7 @@ func set_polygons_on_colliders() -> void:
 		print("Set the assigned polygon shape.")
 	else:
 		for polygon in polygons:
-			var polygon_shape = CollisionShape2D.new()
+			var polygon_shape = CollisionPolygon2D.new()
 			polygon_shape.polygon = polygon
 			add_child(polygon_shape)
 		print("Added " + str(len(polygons)) + "(s) unique polygons.")
@@ -205,6 +206,8 @@ func set_collision_polygon_node_path(value: NodePath) -> void:
 		print("CollisionPolygon2D will be generated for each unique shape.")
 	
 func _enter_tree():
+	set_tilemap_node_path(tilemap_node_path)
+	set_collision_polygon_node_path(collision_polygon_node_path)
 	pass
 
 
