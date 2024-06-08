@@ -54,6 +54,8 @@ When set to true, this exported field will respect the orientation of the tile t
 
 ##### If you are running into issues where corners of your tilemap still are colliding, disbale the physics layer or move the collision for it to a different layer after generating the collision polygons.
 
+##### If you are transforming shapes when drawing them, try not to rotate the tiles (z - rotate left, x - rotate right), only flip the tiles using (c - horizontal, v - vertical). You can achieve the same orientation through flipping only. The reason this is required is because the positioning of the tile is not saved when it's transposed. So it's not possible (from what I can tell) to determine it's position accurately if rotations were used.
+
 
 #### Special thanks to github.com/AFK-Mario for initially writing the code to generate the set of polygons [here](https://gist.github.com/afk-mario/15b5855ccce145516d1b458acfe29a28).
 
