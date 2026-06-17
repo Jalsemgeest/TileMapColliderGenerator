@@ -33,7 +33,7 @@ var _collision_polygon_node: CollisionPolygon2D
 func _ready():
 	pass
 
-func _refresh_action(value: String) -> void:
+func _refresh_action(_value: String) -> void:
 	if _collision_polygon_node == null:
 		# Delete all children collisionpolygon2d nodes.
 		for child in get_children():
@@ -113,12 +113,12 @@ func set_polygons_on_colliders() -> void:
 			polygon_shape.name = "TMCG-CollisionPolygon2D-"+str(count)
 			count += 1
 			add_child(polygon_shape)
-			polygon_shape.owner = get_parent()
+			polygon_shape.owner = get_tree().edited_scene_root
 		print("Added " + str(len(polygons)) + "(s) unique polygons.")
 
-func get_points(position: Vector2, cell_size: Vector2) -> Array:
-	var x = position.x
-	var y = position.y
+func get_points(_position: Vector2, cell_size: Vector2) -> Array:
+	var x = _position.x
+	var y = _position.y
 	#1   2
 	#
 	#0   3
